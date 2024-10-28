@@ -15,18 +15,18 @@ public class CubeSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        _clickDetector.OnCubeClicked += TrySpawn;
+        _clickDetector.CubeClicked += TrySpawn;
     }
 
     private void OnDisable()
     {
-        _clickDetector.OnCubeClicked -= TrySpawn;
+        _clickDetector.CubeClicked -= TrySpawn;
     }
 
     private void Spawn()
     {
         Rigidbody cubeCopy = Instantiate(_cubeStandart, transform.position, transform.rotation);
-
+        
         _childCubes.Add(cubeCopy);
     }
 

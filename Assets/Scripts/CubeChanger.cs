@@ -6,6 +6,11 @@ public class CubeChanger : MonoBehaviour
 
     private Renderer _renderer;
 
+    private void Awake()
+    {
+        _renderer = new Renderer();
+    }
+
     private void OnEnable()
     {
         _cubeSpawner.CubeSpawned += ChangeColor;
@@ -33,7 +38,7 @@ public class CubeChanger : MonoBehaviour
         foreach (Rigidbody rigidbody in _cubeSpawner.ChildCubes)
         {
             _renderer = rigidbody.GetComponent<Renderer>();
-            _renderer.material.color = new Color(Random.value, Random.value, Random.value, 1f);
+            _renderer.material.color = Random.ColorHSV();
         }
     }
 }

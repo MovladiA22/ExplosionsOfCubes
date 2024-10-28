@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5412014119cb049a1806f23a7342be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _game: {fileID: 4358293}
+  _clickDetector: {fileID: 4358293}
 --- !u!4 &320532123
 Transform:
   m_ObjectHideFlags: 0
@@ -1037,6 +1037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1357082033}
+  - component: {fileID: 1357082034}
   m_Layer: 0
   m_Name: Cubes
   m_TagString: Untagged
@@ -1062,6 +1063,19 @@ Transform:
   - {fileID: 1089868857}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1357082034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357082032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69156e2bea36fe34ba2deadd6a48f412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cubeSpawner: {fileID: 320532122}
 --- !u!1 &1488493532
 GameObject:
   m_ObjectHideFlags: 0

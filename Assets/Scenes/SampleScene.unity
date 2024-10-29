@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fafdf42b0cf62f40a3dcfe3078a2fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 963194227}
 --- !u!1 &198543192
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,7 +921,7 @@ GameObject:
   - component: {fileID: 1225191837}
   - component: {fileID: 1225191836}
   m_Layer: 0
-  m_Name: Exployer
+  m_Name: Exploder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -938,7 +939,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14ed3e8500147348afbe914050f7e14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clickDetector: {fileID: 4358293}
   _explosionRadius: 500
   _explosionForce: 800
 --- !u!4 &1225191837
@@ -1057,6 +1057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clickDetector: {fileID: 4358293}
+  _exploder: {fileID: 1225191836}
 --- !u!1 &1488493532
 GameObject:
   m_ObjectHideFlags: 0

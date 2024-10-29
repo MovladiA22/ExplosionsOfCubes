@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class ClickDetector : MonoBehaviour
 {
-    public event Action<Rigidbody> CubeClicked;
+    [SerializeField] private Camera _camera;
+
+    public event Action<Cube> CubeClicked;
 
     private void Update()
     {
@@ -15,12 +17,12 @@ public class ClickDetector : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             float maxDistance = 100;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
             {
-                if (hit.collider.gameObject.TryGetComponent(out Rigidbody rigidbody))
-                    CubeClicked?.Invoke(rigidbody);
+                if (hit.collider.TryGetComponent(out Cube cube))
+                    CubeClicked?.Invoke(cube);
             }
         }
     }

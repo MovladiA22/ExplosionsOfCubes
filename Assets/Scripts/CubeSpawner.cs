@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] ClickDetector _clickDetector;
+    [SerializeField] private ClickDetector _clickDetector;
+    [SerializeField] private Exploder _exploder;
 
-    private Rigidbody _cubeStandart;
+    private Cube _cubeStandart;
     private int _chanceOfSpawn = 100;
 
     private void OnEnable()
@@ -23,8 +24,9 @@ public class CubeSpawner : MonoBehaviour
         var newScale = _cubeStandart.transform.localScale / scaleDivider;
         var newColor = Random.ColorHSV();
 
-        Rigidbody cubeCopy = Instantiate(_cubeStandart, transform);
-        cubeCopy.GetComponent<Cube>().Init(newScale, newColor);
+        Cube cubeCopy = Instantiate(_cubeStandart, transform);
+        cubeCopy.Init(newScale, newColor);
+        _exploder.Explode(cubeCopy.GetComponent<Rigidbody>());
     }
 
     private void SpawnRandomNumberOfTimes()
@@ -37,13 +39,13 @@ public class CubeSpawner : MonoBehaviour
             Spawn();
     }
 
-    private void TrySpawn(Rigidbody rigidbody)
+    private void TrySpawn(Cube cube)
     {
         int minValue = 0;
         int maxValue = 100;
         int chanceDivider = 2;
 
-        _cubeStandart = rigidbody;
+        _cubeStandart = cube;
 
         if (Random.Range(minValue, maxValue + 1) <= _chanceOfSpawn)
         {

@@ -15,12 +15,11 @@ public class ClickDetector : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             float maxDistance = 100;
-            RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, maxDistance))
+            if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
             {
-                if (hit.collider.gameObject.TryGetComponent<Rigidbody>(out var rigidbody))
+                if (hit.collider.gameObject.TryGetComponent(out Rigidbody rigidbody))
                     CubeClicked?.Invoke(rigidbody);
             }
         }

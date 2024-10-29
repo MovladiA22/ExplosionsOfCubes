@@ -1,17 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] private ClickDetector _clickDetector;
+    [SerializeField] ClickDetector _clickDetector;
 
-    public event System.Action CubeSpawned;
-    private List<Rigidbody> _childCubes = new List<Rigidbody>();
     private Rigidbody _cubeStandart;
     private int _chanceOfSpawn = 100;
-
-    public List<Rigidbody> ChildCubes => _childCubes.ToList();
 
     private void OnEnable()
     {
@@ -25,9 +19,12 @@ public class CubeSpawner : MonoBehaviour
 
     private void Spawn()
     {
+        int scaleDivider = 2;
+        var newScale = _cubeStandart.transform.localScale / scaleDivider;
+        var newColor = Random.ColorHSV();
+
         Rigidbody cubeCopy = Instantiate(_cubeStandart, transform);
-        
-        _childCubes.Add(cubeCopy);
+        cubeCopy.GetComponent<Cube>().Init(newScale, newColor);
     }
 
     private void SpawnRandomNumberOfTimes()
@@ -38,25 +35,22 @@ public class CubeSpawner : MonoBehaviour
 
         for (int i = 0; i < randomNumber; i++)
             Spawn();
-
-        CubeSpawned?.Invoke();
     }
 
     private void TrySpawn(Rigidbody rigidbody)
     {
         int minValue = 0;
-        int maxValue = 101;
+        int maxValue = 100;
         int chanceDivider = 2;
 
         _cubeStandart = rigidbody;
 
-        if (Random.Range(minValue, maxValue) <= _chanceOfSpawn)
+        if (Random.Range(minValue, maxValue + 1) <= _chanceOfSpawn)
         {
             _chanceOfSpawn /= chanceDivider;
             SpawnRandomNumberOfTimes();
         }
 
-        _childCubes.Clear();
         Destroy(_cubeStandart.gameObject);
     }
 }

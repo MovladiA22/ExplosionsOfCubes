@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CubeChanger : MonoBehaviour
 {
-    [SerializeField] CubeSpawner _cubeSpawner;
+    [SerializeField] private CubeSpawner _cubeSpawner;
 
     private Renderer _renderer;
 
@@ -37,8 +37,8 @@ public class CubeChanger : MonoBehaviour
     {
         foreach (Rigidbody rigidbody in _cubeSpawner.ChildCubes)
         {
-            _renderer = rigidbody.GetComponent<Renderer>();
-            _renderer.material.color = Random.ColorHSV();
+            if (rigidbody.TryGetComponent<Renderer>(out Renderer renderer))
+                renderer.material.color = Random.ColorHSV();
         }
     }
 }

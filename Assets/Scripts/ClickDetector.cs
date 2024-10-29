@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class ClickDetector : MonoBehaviour
 {
-    public event Action CubeClicked;
-
-    public Rigidbody Rigidbody { get; private set; }
+    public event Action<Rigidbody> CubeClicked;
 
     private void Update()
     {
@@ -23,10 +21,7 @@ public class ClickDetector : MonoBehaviour
             if (Physics.Raycast(ray, out hit, maxDistance))
             {
                 if (hit.collider.gameObject.TryGetComponent<Rigidbody>(out var rigidbody))
-                {
-                    Rigidbody = rigidbody;
-                    CubeClicked?.Invoke();
-                }
+                    CubeClicked?.Invoke(rigidbody);
             }
         }
     }

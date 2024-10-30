@@ -21,12 +21,12 @@ public class CubeSpawner : MonoBehaviour
     private void Spawn()
     {
         int scaleDivider = 2;
-        var newScale = _cubeStandart.transform.localScale / scaleDivider;
-        var newColor = Random.ColorHSV();
+        var scaleOfCopy = _cubeStandart.transform.localScale / scaleDivider;
+        var colorOfCopy = Random.ColorHSV();
 
         Cube cubeCopy = Instantiate(_cubeStandart, transform);
-        cubeCopy.Init(newScale, newColor);
-        _exploder.Explode(cubeCopy.GetComponent<Rigidbody>());
+        cubeCopy.Init(scaleOfCopy, colorOfCopy);
+        _exploder.Explode(cubeCopy.gameObject);
     }
 
     private void SpawnRandomNumberOfTimes()

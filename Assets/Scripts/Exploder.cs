@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-
 public class Exploder : MonoBehaviour
 {
     [SerializeField] private float _explosionRadius;

@@ -3,22 +3,19 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    private Stack<Cube> _spawnCubes = new Stack<Cube>();
-
     public Stack<Cube> TrySpawn(Cube cube)
     {
+        Stack<Cube> cubes = new Stack<Cube>();
         int minValue = 0;
         int maxValue = 100;
 
-        _spawnCubes.Clear();
-
         if (Random.Range(minValue, maxValue + 1) <= cube.ChanceOfSpawn)
-            SpawnRandomNumberOfTimes(cube);
+            cubes = SpawnRandomNumberOfTimes(cube);
 
-        return _spawnCubes;
+        return cubes;
     }
 
-    private void Spawn(Cube cube)
+    private Cube Spawn(Cube cube)
     {
         int divider = 2;
         int chanceOfSpawnOfCopy = cube.ChanceOfSpawn / divider;
@@ -27,17 +24,20 @@ public class CubeSpawner : MonoBehaviour
 
         Cube cubeCopy = Instantiate(cube, transform);
         cubeCopy.Init(scaleOfCopy, colorOfCopy, chanceOfSpawnOfCopy);
-        
-        _spawnCubes.Push(cubeCopy);
+
+        return cubeCopy;
     }
 
-    private void SpawnRandomNumberOfTimes(Cube cube)
+    private Stack<Cube> SpawnRandomNumberOfTimes(Cube cube)
     {
+        Stack<Cube> cubes = new Stack<Cube>();
         int minValue = 2;
         int maxValue = 6;
         int randomNumber = Random.Range(minValue, maxValue + 1);
 
         for (int i = 0; i < randomNumber; i++)
-            Spawn(cube);
+            cubes.Push(Spawn(cube));
+
+        return cubes;
     }
 }

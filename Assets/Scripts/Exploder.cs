@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -7,11 +8,9 @@ public class Exploder : MonoBehaviour
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
 
-    Rigidbody explodableObject;
-
-    public void Explode(GameObject gameObjectCube)
+    public void Explode(Stack<Cube> explodableObjects)
     {
-        explodableObject = gameObjectCube.GetComponent<Rigidbody>();
-        explodableObject.GetComponent<Rigidbody>().AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+        foreach (var explodableObject in explodableObjects)
+            explodableObject.Rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
     }
 }

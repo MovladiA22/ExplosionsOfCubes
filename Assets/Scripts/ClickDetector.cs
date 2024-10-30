@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 public class ClickDetector : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
-
-    public event Action<Cube> CubeClicked;
+    [SerializeField] private CubeSpawner _cubeSpawner;
+    [SerializeField] private Exploder _exploder;
 
     private void Update()
     {
@@ -22,7 +21,10 @@ public class ClickDetector : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
             {
                 if (hit.collider.TryGetComponent(out Cube cube))
-                    CubeClicked?.Invoke(cube);
+                {
+                    _exploder.Explode(_cubeSpawner.TrySpawn(cube));
+                    Destroy(cube.gameObject);
+                }
             }
         }
     }

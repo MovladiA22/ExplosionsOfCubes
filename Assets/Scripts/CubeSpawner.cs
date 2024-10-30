@@ -1,58 +1,43 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] private ClickDetector _clickDetector;
-    [SerializeField] private Exploder _exploder;
+    private Stack<Cube> _spawnCubes = new Stack<Cube>();
 
-    private Cube _cubeStandart;
-    private int _chanceOfSpawn = 100;
-
-    private void OnEnable()
+    public Stack<Cube> TrySpawn(Cube cube)
     {
-        _clickDetector.CubeClicked += TrySpawn;
+        int minValue = 0;
+        int maxValue = 100;
+
+        _spawnCubes.Clear();
+
+        if (Random.Range(minValue, maxValue + 1) <= cube.ChanceOfSpawn)
+            SpawnRandomNumberOfTimes(cube);
+
+        return _spawnCubes;
     }
 
-    private void OnDisable()
+    private void Spawn(Cube cube)
     {
-        _clickDetector.CubeClicked -= TrySpawn;
-    }
-
-    private void Spawn()
-    {
-        int scaleDivider = 2;
-        var scaleOfCopy = _cubeStandart.transform.localScale / scaleDivider;
+        int divider = 2;
+        int chanceOfSpawnOfCopy = cube.ChanceOfSpawn / divider;
+        var scaleOfCopy = cube.transform.localScale / divider;
         var colorOfCopy = Random.ColorHSV();
 
-        Cube cubeCopy = Instantiate(_cubeStandart, transform);
-        cubeCopy.Init(scaleOfCopy, colorOfCopy);
-        _exploder.Explode(cubeCopy.gameObject);
+        Cube cubeCopy = Instantiate(cube, transform);
+        cubeCopy.Init(scaleOfCopy, colorOfCopy, chanceOfSpawnOfCopy);
+        
+        _spawnCubes.Push(cubeCopy);
     }
 
-    private void SpawnRandomNumberOfTimes()
+    private void SpawnRandomNumberOfTimes(Cube cube)
     {
         int minValue = 2;
         int maxValue = 6;
         int randomNumber = Random.Range(minValue, maxValue + 1);
 
         for (int i = 0; i < randomNumber; i++)
-            Spawn();
-    }
-
-    private void TrySpawn(Cube cube)
-    {
-        int minValue = 0;
-        int maxValue = 100;
-        int chanceDivider = 2;
-
-        _cubeStandart = cube;
-
-        if (Random.Range(minValue, maxValue + 1) <= _chanceOfSpawn)
-        {
-            _chanceOfSpawn /= chanceDivider;
-            SpawnRandomNumberOfTimes();
-        }
-
-        Destroy(_cubeStandart.gameObject);
+            Spawn(cube);
     }
 }

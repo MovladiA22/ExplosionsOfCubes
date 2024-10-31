@@ -1,21 +1,32 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    public Stack<Cube> TrySpawn(Cube cube)
+    public bool TrySpawn(Cube cube)
     {
-        Stack<Cube> cubes = new Stack<Cube>();
         int minValue = 0;
         int maxValue = 100;
 
         if (Random.Range(minValue, maxValue + 1) <= cube.ChanceOfSpawn)
-            cubes = SpawnRandomNumberOfTimes(cube);
+        {
+            SpawnRandomNumberOfTimes(cube);
+            return true;
+        }
 
-        return cubes;
+        return false;
     }
 
-    private Cube Spawn(Cube cube)
+    private void SpawnRandomNumberOfTimes(Cube cube)
+    {
+        int minValue = 2;
+        int maxValue = 6;
+        int randomNumber = Random.Range(minValue, maxValue + 1);
+
+        for (int i = 0; i < randomNumber; i++)
+            Spawn(cube);
+    }
+
+    private void Spawn(Cube cube)
     {
         int divider = 2;
         int chanceOfSpawnOfCopy = cube.ChanceOfSpawn / divider;
@@ -24,20 +35,5 @@ public class CubeSpawner : MonoBehaviour
 
         Cube cubeCopy = Instantiate(cube, transform);
         cubeCopy.Init(scaleOfCopy, colorOfCopy, chanceOfSpawnOfCopy);
-
-        return cubeCopy;
-    }
-
-    private Stack<Cube> SpawnRandomNumberOfTimes(Cube cube)
-    {
-        Stack<Cube> cubes = new Stack<Cube>();
-        int minValue = 2;
-        int maxValue = 6;
-        int randomNumber = Random.Range(minValue, maxValue + 1);
-
-        for (int i = 0; i < randomNumber; i++)
-            cubes.Push(Spawn(cube));
-
-        return cubes;
     }
 }

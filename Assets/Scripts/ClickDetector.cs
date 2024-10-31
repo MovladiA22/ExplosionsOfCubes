@@ -22,7 +22,9 @@ public class ClickDetector : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out Cube cube))
                 {
-                    _exploder.Explode(_cubeSpawner.TrySpawn(cube));
+                    if (_cubeSpawner.TrySpawn(cube) == false)
+                        _exploder.Explode(cube);
+
                     Destroy(cube.gameObject);
                 }
             }

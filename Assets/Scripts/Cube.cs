@@ -11,8 +11,6 @@ public class Cube : MonoBehaviour
 
     public int ChanceOfSpawn => _chanceOfSpawn;
 
-    public Rigidbody Rigidbody => _rigidbody;
-
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();

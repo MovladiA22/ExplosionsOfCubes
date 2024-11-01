@@ -13,7 +13,9 @@ public class ClickDetector : MonoBehaviour
 
     private void ProcessClick()
     {
-        if (Input.GetMouseButtonDown(0))
+        int numberForMouseButton = 0;
+
+        if (Input.GetMouseButtonDown(numberForMouseButton))
         {
             float maxDistance = 100;
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
